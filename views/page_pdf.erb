@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title><%= @title %></title>
+<style type="text/css">
+<%= File.read(File.join(Sinatra::Application.root, "public/static/bootstrap-3.3.2/css/bootstrap.min.pdf.css")) %>
+<%= File.read(File.join(Sinatra::Application.root, "public/static/default.min.css")) %>
+<%= File.read(File.join(Sinatra::Application.root, "public/static/highlight-8.4/default.min.css")) %>
+body{font-size:12px;}h1{font-size:30px;}h2{font-size:22px;}pre{font-size: 12px;}
+.page-break{display:block;clear:both;page-break-after:always;margin-bottom:150px;}
+</style>
+<script type="text/javascript" src="file:///Users/alex/scripts/book/public/static/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="file:///Users/alex/scripts/book/public/static/highlight-8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="container">
+<br/>
+<br/>
+<br/>
+<br/>
+<h1><%= @title %></h1>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<center>
+<div style="margin-top: 150px;">
+<img src="file:///Users/alex/scripts/book/public/static/images/cat_tayger.jpg" />
+</center>
+</div>
+<div style="float:right">
+<p><%= @author %></p>
+<p>Any feedback is welcome: <a href='mailto:Oleksandr Avoiants<shhavel@gmail.com>?subject=Feedback for book "Service Oriented Architecture in Practice"'>shhavel@gmail.com</a></p>
+</div>
+<div class="page-break"></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%= @index %>
+<br/>
+<br/>
+<% @chapters.each do |chapter| %>
+<div class="page-break"></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<%= chapter %>
+<br/>
+<br/>
+<% end %>
+</div>
+</body>
+</html>
