@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'sinatra'
-require 'tilt/redcarpet'
+#require 'tilt/redcarpet'
 require 'tilt/erubis'
 require 'rdiscount'
 require 'htmlcompressor'
@@ -53,7 +53,7 @@ get '/service_oriented_arhitecture_in_practice_:lang.pdf' do
     #url = file.sub(/views/, '').sub(/\.md$/, '.html')
     ch = File.read(file)
     #puts file.sub(/views/, '').sub(/\.md$/, '').to_sym
-    @chapters << markdown(file.sub(/views/, '').sub(/\.md$/, '').to_sym).gsub('<a name="', "<a name=\"#{chapter_anch}-").gsub('../static/images', '/Users/alex/scripts/book/public/static/images')
+    @chapters << markdown(file.sub(/views/, '').sub(/\.md$/, '').to_sym).gsub('<a name="', "<a name=\"#{chapter_anch}-").gsub('../static/images', '/Users/alex/scripts/soabp-online/public/static/images')
     title = ch.split("\n").first
     anchors = ch.scan(/## <a name="([^"<>]+)"><\/a>\s*(.+)\s*/)
 
