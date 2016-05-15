@@ -1074,8 +1074,8 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 15px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -1516,8 +1516,7 @@ samp {
 code {
   padding: 2px 4px;
   font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
+  background-color: #f2f2f2;
   border-radius: 4px;
 }
 kbd {
@@ -1539,7 +1538,7 @@ kbd kbd {
 pre {
   display: block;
   padding: 9.5px;
-  margin: 0 0 10px;
+  margin: 20px 0 24px;
   font-size: 13px;
   line-height: 1.42857143;
   color: #333;

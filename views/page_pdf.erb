@@ -8,15 +8,15 @@
 <style type="text/css">
 <%= File.read(File.join(Sinatra::Application.root, "public/static/bootstrap-3.3.2/css/bootstrap.min.pdf.css")) %>
 <%= File.read(File.join(Sinatra::Application.root, "public/static/default.min.css")) %>
-<%= File.read(File.join(Sinatra::Application.root, "public/static/highlight-8.4/default.min.css")) %>
+<%= File.read(File.join(Sinatra::Application.root, "public/static/google-code-prettify/prettify.min.css")) %>
 body{font-size:12px;}h1{font-size:30px;}h2{font-size:22px;}pre{font-size: 12px;}
 .page-break{display:block;clear:both;page-break-after:always;margin-bottom:150px;}
 </style>
 <script type="text/javascript" src="file:///Users/alex/scripts/soabp-online/public/static/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="file:///Users/alex/scripts/soabp-online/public/static/highlight-8.4/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript" src="file:///Users/alex/scripts/soabp-online/public/static/google-code-prettify/prettify.min.js"></script>
+<script type="text/javascript" src="file:///Users/alex/scripts/soabp-online/public/static/google-code-prettify/lang-css.min.js"></script>
 </head>
-<body>
+<body onload="prettyPrint()">
 <div class="container">
 <br/>
 <br/>

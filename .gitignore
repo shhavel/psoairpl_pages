@@ -2,3 +2,4 @@
 views/**/*.md
 public/**/*.html
 public/**/*.pdf
+/.bundle

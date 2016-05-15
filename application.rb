@@ -1,6 +1,5 @@
 # encoding: UTF-8
 require 'sinatra'
-#require 'tilt/redcarpet'
 require 'tilt/erubis'
 require 'rdiscount'
 require 'htmlcompressor'
@@ -24,7 +23,7 @@ get '/:folder/index.html' do
     anchors.each {|(a, name)| text << "<li><a href=\"#{url}##{a}\">#{name.gsub('`', '')}</a></li>" }
     text << "</ul>"
   end
-  erb(:page).tap {|p| File.open("public/#{params[:folder]}/index.html", 'w') {|f| f.write(HtmlCompressor::Compressor.new.compress(p).gsub(/>\s+</, '><')) } }
+  erb(:page).tap { |p| File.open("public/#{params[:folder]}/index.html", 'w') { |f| f.write(HtmlCompressor::Compressor.new.compress(p).gsub(/>\s+</, '><')) } }
 end
 
 get '/:folder/:page.html' do
@@ -34,9 +33,13 @@ get '/:folder/:page.html' do
   @page_title = ch.split("\n").first.sub(/.+\.\s+/, '')
   @menu = menu(params[:folder])
   @text = markdown(:"#{params[:folder]}/#{params[:page]}")
+  @text.gsub!('<pre><code class="ruby">', '<pre class="prettyprint lang-ruby">')
+  @text.gsub!('<pre><code class="yaml">', '<pre class="prettyprint lang-yaml">')
+  @text.gsub!('<pre><code>', '<pre class="prettyprint">')
+  @text.gsub!('</code></pre>', '</pre>')
   @description = index_description(params[:folder])
   @keywords = ch.scan(/(?<=\[)([^\]]+)(?=\]\()/).map(&:first).uniq | ['ruby', 'sinatra', 'SOA', 'API', 'HTTP API', 'rails-api']
-  erb(:page).tap {|p| File.open("public/#{params[:folder]}/#{params[:page]}.html", 'w') {|f| f.write(HtmlCompressor::Compressor.new.compress(p).gsub(/>\s+</, '><')) } }
+  erb(:page).tap { |p| File.open("public/#{params[:folder]}/#{params[:page]}.html", 'w') { |f| f.write(HtmlCompressor::Compressor.new.compress(p).gsub(/>\s+</, '><')) } }
 end
 
 get '/service_oriented_arhitecture_in_practice_:lang.pdf' do
@@ -46,13 +49,10 @@ get '/service_oriented_arhitecture_in_practice_:lang.pdf' do
 
   @chapters = []
   @files = Dir["views/#{params[:lang]}-ruby/*.md"].sort_by {|f| f =~ /\/preface.md$/ ? '0' : f }
-  #puts @files.inspect
 
   @index = @files.each_with_index.inject("<h1>#{contents}</h1>") do |text, (file, ind)|
     chapter_anch = (ind == 0 ? 'preface' : (ind == 10 ? "chapter10" : "chapter0#{ind}"))
-    #url = file.sub(/views/, '').sub(/\.md$/, '.html')
     ch = File.read(file)
-    #puts file.sub(/views/, '').sub(/\.md$/, '').to_sym
     @chapters << markdown(file.sub(/views/, '').sub(/\.md$/, '').to_sym).gsub('<a name="', "<a name=\"#{chapter_anch}-").gsub('../static/images', '/Users/alex/scripts/soabp-online/public/static/images')
     title = ch.split("\n").first
     anchors = ch.scan(/## <a name="([^"<>]+)"><\/a>\s*(.+)\s*/)
@@ -63,10 +63,6 @@ get '/service_oriented_arhitecture_in_practice_:lang.pdf' do
   end
   @index = HtmlCompressor::Compressor.new.compress(@index).gsub(/>\s+</, '><')
   @chapters = @chapters.map {|ch| HtmlCompressor::Compressor.new.compress(ch).gsub(/>\s+</, '><') }
-
-  # puts "====  chapter lst  ===="
-  # puts @chapters.last
-  # puts ''
 
   html_pdf = erb(:page_pdf)
   footer_pdf = erb(:footer_pdf).gsub("\n", '')
@@ -79,8 +75,6 @@ get '/service_oriented_arhitecture_in_practice_:lang.pdf' do
       margin: { top: 20, bottom: 20, left: 25, right: 25 })
   end
   send_file file_path, type: :pdf
-
-  #erb(:page_pdf).tap {|p| File.open("1.html", 'w') {|f| f.write(HtmlCompressor::Compressor.new.compress(p).gsub(/>\s+</, '><')) } }
 end
 
 
